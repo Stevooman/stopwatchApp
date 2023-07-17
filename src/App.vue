@@ -122,22 +122,26 @@ export default {
   font-family: Roboto Mono, sans-serif;
 }
 
+html {
+  background-color: rgb(41, 41, 41);
+}
+
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   padding: 3.0em; /* em = relative to font-size of the element (in this case, 4 times the size of the div's font-size */
-  border: 0.6em solid #0f517e;
-  background-color: #0A3451;
-  border-radius: 2.0em 6.0em;
+  margin: auto;
+  border: 0.6em solid #15eade;
+  background-color: #158cea;
+  border-radius: 1.0em 6.0em;
+  margin-top: 2em;
+  max-width: 70vw;
 }
 
 .numbers {
   font-size: 96px;
-  font-variant-numeric: normal;
+  color: rgb(0, 0, 0);
   display: flex;
   justify-content: center;
-  padding-bottom: 0.4em;
+  padding-bottom: 0.5em;
   text-align: right;
 }
 
@@ -146,17 +150,20 @@ export default {
   grid-template-columns: auto auto auto auto auto auto;
   grid-template-rows: auto auto;
   gap: 2.0em 1.0em;
+  justify-content: space-evenly;
 }
 
 .btns {
   padding: 1.0em;
-  font-size: 24px;
   border-radius: 1.2em;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .startBtn {
   grid-column: 1 / span 2;
   grid-row: 1;
+  background-color: #1521ea;
 }
 
 .pauseBtn {
@@ -178,4 +185,14 @@ export default {
   grid-column: 4 / 7;
   grid-row: 2;
 }
+
+@media screen and (max-width: 600px) {
+    .wrapper {
+      max-width: 65vw;
+    }
+
+    .numbers {
+      font-size: 72px;
+    }
+  }
 </style>
