@@ -5,47 +5,50 @@
     >
       {{ timeDisplay }}
     </div>
-    <div class="buttons">
-      <button 
+    <div
+      class="buttons"
+    >
+      <v-button
         class="btns startBtn"
-        @click="startTimer"
-        >Start
-      </button>
-      <button 
+        :onClick="startTimer"
+        :buttonText="button1"
+      />
+      <v-button 
         class="btns pauseBtn"
-        @click="pauseTimer"
-        >Pause</button>
-      <button 
+        :onClick="pauseTimer"
+        :buttonText="button2"
+      />
+      <v-button
         class="btns resetBtn"
-        @click="resetTimer"
-        >Reset
-      </button>
-      <button 
+        :onClick="resetTimer"
+        :buttonText="button3"
+      />
+      <v-button
         class="btns lapBtn"
-        @click="logLap"
-        >Lap
-      </button>
-      <button 
+        :onClick="logLap"
+        :buttonText="button4"
+      />
+      <v-button
         class="btns viewLapBtn"
-        @click="displayLaps"
-        >{{ viewLapBtnText }}
-      </button>
-      <ul
-        class="lapDisplay"
-        v-if="displayLap"
-      >
-        <li
-          v-for="lap in lapTimes"
-        >
-          <div
-            class="lapTimes"
-          >
-            <p>{{ lap.label }}</p>
-            <span>{{ lap.time }}</span>
-          </div>
-        </li>
-      </ul>
+        :onClick="displayLaps"
+        :buttonText="viewLapBtnText"
+      />
     </div>
+    <ul
+      class="lapDisplay"
+      v-if="displayLap"
+    >
+      <li
+        v-for="lap in lapTimes"
+      >
+        <div
+          class="lapTimes"
+        >
+          <p>{{ lap.label }}</p>
+          <span>{{ lap.time }}</span>
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -54,10 +57,12 @@
 
 
 <script>
+  import Buttons from './components/Buttons.vue';
 
   export default {
     name: 'App',
     components: {
+      'v-button': Buttons,
     },
 
     data() {
@@ -74,6 +79,10 @@
         resetMilliseconds: false,
         displayLap: false,
         viewLapBtnText: "View Laps",
+        button1: "Start",
+        button2: "Pause",
+        button3: "Reset",
+        button4: "Lap",
         lapCounter: 0,
         lapTimes: []
       }
