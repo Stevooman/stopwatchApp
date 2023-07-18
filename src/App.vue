@@ -34,7 +34,11 @@
         :buttonText="viewLapBtnText"
       />
     </div>
-    <ul
+    <v-laps 
+      :displayLap="lapDisplayed"
+      :lapTimes="lapTimes"
+    />
+    <!-- <ul
       class="lapDisplay"
       v-if="displayLap"
     >
@@ -48,7 +52,7 @@
           <span>{{ lap.time }}</span>
         </div>
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
@@ -58,11 +62,13 @@
 
 <script>
   import Buttons from './components/Buttons.vue';
+  import Laps from './components/Laps.vue';
 
   export default {
     name: 'App',
     components: {
       'v-button': Buttons,
+      'v-laps': Laps
     },
 
     data() {
@@ -77,7 +83,7 @@
         paused: true,
         intervalId: 0,
         resetMilliseconds: false,
-        displayLap: false,
+        lapDisplayed: false,
         viewLapBtnText: "View Laps",
         button1: "Start",
         button2: "Pause",
@@ -143,12 +149,12 @@
       },
 
       displayLaps() {
-        if (!this.displayLap) {
+        if (!this.lapDisplayed) {
           this.viewLapBtnText = "Close laps"
-          this.displayLap = true;
+          this.lapDisplayed = true;
         } else {
           this.viewLapBtnText = "View Laps";
-          this.displayLap = false;
+          this.lapDisplayed = false;
         }
       }
     },
