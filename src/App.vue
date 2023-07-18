@@ -123,7 +123,7 @@
   font-family: Roboto Mono, sans-serif;
 }
 
-html {
+body {
   background-color: rgb(41, 41, 41);
 }
 
@@ -194,6 +194,14 @@ html {
 
     .numbers {
       font-size: 72px;
+    }
+
+    .buttons {
+      gap: 0.3em 0.7em;
+    }
+
+    .btns {
+      padding: 0.5em;
     }
   }
 </style>
