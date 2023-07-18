@@ -22,12 +22,14 @@
       </button>
       <button 
         class="btns lapBtn"
+        @click="logLap"
         >Lap
       </button>
       <button 
         class="btns viewLapBtn"
         >View Laps
       </button>
+      <LapTimes />
     </div>
   </div>
 </template>
@@ -102,6 +104,10 @@
 
       padZeros(unitOfTime) {
         return ('0' + unitOfTime).length > 2 ? unitOfTime : '0' + unitOfTime;
+      },
+
+      logLap() {
+        
       }
     },
 
