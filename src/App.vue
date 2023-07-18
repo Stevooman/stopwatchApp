@@ -74,9 +74,8 @@
         resetMilliseconds: false,
         displayLap: false,
         viewLapBtnText: "View Laps",
-        lapTimes: [
-          { label: "Lap 1", time: "02:34:52" }
-        ]
+        lapCounter: 0,
+        lapTimes: []
       }
     },
 
@@ -125,7 +124,13 @@
       },
 
       logLap() {
-        
+        this.lapCounter++;
+        this.lapTimes.push(
+          {
+            label: "Lap " + this.lapCounter,
+            time: this.timeDisplay 
+          }
+        )
       },
 
       displayLaps() {
@@ -133,7 +138,7 @@
           this.viewLapBtnText = "Close laps"
           this.displayLap = true;
         } else {
-          this.viewLapBtnText = "Display lap";
+          this.viewLapBtnText = "View Laps";
           this.displayLap = false;
         }
       }
