@@ -37,77 +37,78 @@
 
 
 <script>
+  import LapTimes from './components/LapTimes.vue';
 
-export default {
-  name: 'App',
-  components: {
-    
-  },
+  export default {
+    name: 'App',
+    components: {
+      LapTimes
+    },
 
-  data() {
-    return {
-      timeDisplay: "00:00:00",
-      minutes: 0,
-      seconds: 0,
-      milliseconds: 0,
-      startTime: 0,
-      elapsedTime: 0,
-      currentTime: 0,
-      paused: true,
-      intervalId: 0,
-      resetMilliseconds: false
-    }
-  },
-
-  methods: {
-    startTimer() {
-      if (this.paused) {
-        this.paused = false;
-        this.startTime = Date.now() - this.elapsedTime;
-        this.intervalId = setInterval(this.updateTimer, 10);
+    data() {
+      return {
+        timeDisplay: "00:00:00",
+        minutes: 0,
+        seconds: 0,
+        milliseconds: 0,
+        startTime: 0,
+        elapsedTime: 0,
+        currentTime: 0,
+        paused: true,
+        intervalId: 0,
+        resetMilliseconds: false
       }
     },
 
-    updateTimer() {
-      this.elapsedTime = Date.now() - this.startTime;
-      this.milliseconds = Math.floor(this.elapsedTime / 10) % 100;
-      this.seconds = Math.floor((this.elapsedTime / 1000) % 60);
-      this.minutes = Math.floor((this.elapsedTime / (1000 * 60)) % 60);
+    methods: {
+      startTimer() {
+        if (this.paused) {
+          this.paused = false;
+          this.startTime = Date.now() - this.elapsedTime;
+          this.intervalId = setInterval(this.updateTimer, 10);
+        }
+      },
 
-      this.milliseconds = this.padZeros(this.milliseconds);
-      this.seconds = this.padZeros(this.seconds);
-      this.minutes = this.padZeros(this.minutes);
-      this.displayTimer();
+      updateTimer() {
+        this.elapsedTime = Date.now() - this.startTime;
+        this.milliseconds = Math.floor(this.elapsedTime / 10) % 100;
+        this.seconds = Math.floor((this.elapsedTime / 1000) % 60);
+        this.minutes = Math.floor((this.elapsedTime / (1000 * 60)) % 60);
+
+        this.milliseconds = this.padZeros(this.milliseconds);
+        this.seconds = this.padZeros(this.seconds);
+        this.minutes = this.padZeros(this.minutes);
+        this.displayTimer();
+      },
+
+      displayTimer() {
+        this.timeDisplay = `${this.minutes}:${this.seconds}:${this.milliseconds}`;
+      },
+
+      pauseTimer() {
+        clearInterval(this.intervalId);
+        this.paused = true;
+      },
+
+      resetTimer() {
+        clearInterval(this.intervalId);
+        this.paused = true;
+        this.elapsedTime = 0;
+        this.minutes = 0;
+        this.seconds = 0;
+        this.milliseconds = 0;
+        this.timeDisplay = "00:00:00";
+      },
+
+      padZeros(unitOfTime) {
+        return ('0' + unitOfTime).length > 2 ? unitOfTime : '0' + unitOfTime;
+      }
     },
 
-    displayTimer() {
-       this.timeDisplay = `${this.minutes}:${this.seconds}:${this.milliseconds}`;
-    },
-
-    pauseTimer() {
-      clearInterval(this.intervalId);
-      this.paused = true;
-    },
-
-    resetTimer() {
-      clearInterval(this.intervalId);
-      this.paused = true;
-      this.elapsedTime = 0;
-      this.minutes = 0;
-      this.seconds = 0;
-      this.milliseconds = 0;
-      this.timeDisplay = "00:00:00";
-    },
-
-    padZeros(unitOfTime) {
-      return ('0' + unitOfTime).length > 2 ? unitOfTime : '0' + unitOfTime;
+    computed: {
+      
     }
-  },
-
-  computed: {
-    
   }
-}
 </script>
 
 
