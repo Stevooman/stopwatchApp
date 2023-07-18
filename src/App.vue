@@ -27,9 +27,24 @@
       </button>
       <button 
         class="btns viewLapBtn"
-        >View Laps
+        @click="displayLaps"
+        >{{ viewLapBtnText }}
       </button>
-      <LapTimes />
+      <ul
+        class="lapDisplay"
+        v-if="displayLap"
+      >
+        <li
+          v-for="lap in lapTimes"
+        >
+          <div
+            class="lapTimes"
+          >
+            <p>{{ lap.label }}</p>
+            <span>{{ lap.time }}</span>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -39,12 +54,10 @@
 
 
 <script>
-  import LapTimes from './components/LapTimes.vue';
 
   export default {
     name: 'App',
     components: {
-      LapTimes
     },
 
     data() {
@@ -58,7 +71,12 @@
         currentTime: 0,
         paused: true,
         intervalId: 0,
-        resetMilliseconds: false
+        resetMilliseconds: false,
+        displayLap: false,
+        viewLapBtnText: "View Laps",
+        lapTimes: [
+          { label: "Lap 1", time: "02:34:52" }
+        ]
       }
     },
 
@@ -108,6 +126,16 @@
 
       logLap() {
         
+      },
+
+      displayLaps() {
+        if (!this.displayLap) {
+          this.viewLapBtnText = "Close laps"
+          this.displayLap = true;
+        } else {
+          this.viewLapBtnText = "Display lap";
+          this.displayLap = false;
+        }
       }
     },
 
