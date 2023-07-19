@@ -37,22 +37,8 @@
     <v-laps 
       :displayLap="lapDisplayed"
       :lapTimes="lapTimes"
+      :id="uniqueId"
     />
-    <!-- <ul
-      class="lapDisplay"
-      v-if="displayLap"
-    >
-      <li
-        v-for="lap in lapTimes"
-      >
-        <div
-          class="lapTimes"
-        >
-          <p>{{ lap.label }}</p>
-          <span>{{ lap.time }}</span>
-        </div>
-      </li>
-    </ul> -->
   </div>
 </template>
 
@@ -90,6 +76,7 @@
         button3: "Reset",
         button4: "Lap",
         lapCounter: 0,
+        uniqueId: 0,
         lapTimes: []
       }
     },
@@ -140,8 +127,10 @@
 
       logLap() {
         this.lapCounter++;
+        this.uniqueId++;
         this.lapTimes.push(
           {
+            id: this.uniqueId,
             label: "Lap " + this.lapCounter,
             time: this.timeDisplay 
           }

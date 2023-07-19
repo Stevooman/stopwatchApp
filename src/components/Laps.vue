@@ -5,6 +5,7 @@
   >
     <li
       v-for="lap in lapTimes"
+      :key="lap.id"
     >
       <div
         class="lapTimes"
@@ -24,6 +25,11 @@
 
   export default {
     props: {
+      id: {
+        required: true,
+        type: Number
+      },
+      
       displayLap: {
         required: true,
         type: Boolean
