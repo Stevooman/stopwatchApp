@@ -5,30 +5,40 @@
     >
       {{ timeDisplay }}
     </div>
-    <div class="buttons">
-      <button 
+    <div
+      class="buttons"
+    >
+      <v-button
         class="btns startBtn"
-        @click="startTimer"
-        >Start
-      </button>
-      <button 
+        :onClick="startTimer"
+        :buttonText="button1"
+      />
+      <v-button 
         class="btns pauseBtn"
-        @click="pauseTimer"
-        >Pause</button>
-      <button 
+        :onClick="pauseTimer"
+        :buttonText="button2"
+      />
+      <v-button
         class="btns resetBtn"
-        @click="resetTimer"
-        >Reset
-      </button>
-      <button 
+        :onClick="resetTimer"
+        :buttonText="button3"
+      />
+      <v-button
         class="btns lapBtn"
-        >Lap
-      </button>
-      <button 
+        :onClick="logLap"
+        :buttonText="button4"
+      />
+      <v-button
         class="btns viewLapBtn"
-        >View Laps
-      </button>
+        :onClick="displayLaps"
+        :buttonText="viewLapBtnText"
+      />
     </div>
+    <v-laps 
+      :displayLap="lapDisplayed"
+      :lapTimes="lapTimes"
+      :id="uniqueId"
+    />
   </div>
 </template>
 
@@ -37,77 +47,111 @@
 
 
 <script>
+  import Buttons from './components/Buttons.vue';
+  import Laps from './components/Laps.vue';
 
-export default {
-  name: 'App',
-  components: {
-    
-  },
+  export default {
+    name: 'App',
+    components: {
+      'v-button': Buttons,
+      'v-laps': Laps
+    },
 
-  data() {
-    return {
-      timeDisplay: "00:00:00",
-      minutes: 0,
-      seconds: 0,
-      milliseconds: 0,
-      startTime: 0,
-      elapsedTime: 0,
-      currentTime: 0,
-      paused: true,
-      intervalId: 0,
-      resetMilliseconds: false
-    }
-  },
-
-  methods: {
-    startTimer() {
-      if (this.paused) {
-        this.paused = false;
-        this.startTime = Date.now() - this.elapsedTime;
-        this.intervalId = setInterval(this.updateTimer, 10);
+    data() {
+      return {
+        timeDisplay: "00:00:00",
+        minutes: 0,
+        seconds: 0,
+        milliseconds: 0,
+        startTime: 0,
+        elapsedTime: 0,
+        currentTime: 0,
+        paused: true,
+        intervalId: 0,
+        resetMilliseconds: false,
+        lapDisplayed: false,
+        viewLapBtnText: "View Laps",
+        button1: "Start",
+        button2: "Pause",
+        button3: "Reset",
+        button4: "Lap",
+        lapCounter: 0,
+        uniqueId: 0,
+        lapTimes: []
       }
     },
 
-    updateTimer() {
-      this.elapsedTime = Date.now() - this.startTime;
-      this.milliseconds = Math.floor(this.elapsedTime / 10) % 100;
-      this.seconds = Math.floor((this.elapsedTime / 1000) % 60);
-      this.minutes = Math.floor((this.elapsedTime / (1000 * 60)) % 60);
+    methods: {
+      startTimer() {
+        if (this.paused) {
+          this.paused = false;
+          this.startTime = Date.now() - this.elapsedTime;
+          this.intervalId = setInterval(this.updateTimer, 10);
+        }
+      },
 
-      this.milliseconds = this.padZeros(this.milliseconds);
-      this.seconds = this.padZeros(this.seconds);
-      this.minutes = this.padZeros(this.minutes);
-      this.displayTimer();
+      updateTimer() {
+        this.elapsedTime = Date.now() - this.startTime;
+        this.milliseconds = Math.floor(this.elapsedTime / 10) % 100;
+        this.seconds = Math.floor((this.elapsedTime / 1000) % 60);
+        this.minutes = Math.floor((this.elapsedTime / (1000 * 60)) % 60);
+
+        this.milliseconds = this.padZeros(this.milliseconds);
+        this.seconds = this.padZeros(this.seconds);
+        this.minutes = this.padZeros(this.minutes);
+        this.displayTimer();
+      },
+
+      displayTimer() {
+        this.timeDisplay = `${this.minutes}:${this.seconds}:${this.milliseconds}`;
+      },
+
+      pauseTimer() {
+        clearInterval(this.intervalId);
+        this.paused = true;
+      },
+
+      resetTimer() {
+        clearInterval(this.intervalId);
+        this.paused = true;
+        this.elapsedTime = 0;
+        this.minutes = 0;
+        this.seconds = 0;
+        this.milliseconds = 0;
+        this.timeDisplay = "00:00:00";
+      },
+
+      padZeros(unitOfTime) {
+        return ('0' + unitOfTime).length > 2 ? unitOfTime : '0' + unitOfTime;
+      },
+
+      logLap() {
+        this.lapCounter++;
+        this.uniqueId++;
+        this.lapTimes.push(
+          {
+            id: this.uniqueId,
+            label: "Lap " + this.lapCounter,
+            time: this.timeDisplay 
+          }
+        )
+      },
+
+      displayLaps() {
+        if (!this.lapDisplayed) {
+          this.viewLapBtnText = "Close laps"
+          this.lapDisplayed = true;
+        } else {
+          this.viewLapBtnText = "View Laps";
+          this.lapDisplayed = false;
+        }
+      }
     },
 
-    displayTimer() {
-       this.timeDisplay = `${this.minutes}:${this.seconds}:${this.milliseconds}`;
-    },
-
-    pauseTimer() {
-      clearInterval(this.intervalId);
-      this.paused = true;
-    },
-
-    resetTimer() {
-      clearInterval(this.intervalId);
-      this.paused = true;
-      this.elapsedTime = 0;
-      this.minutes = 0;
-      this.seconds = 0;
-      this.milliseconds = 0;
-      this.timeDisplay = "00:00:00";
-    },
-
-    padZeros(unitOfTime) {
-      return ('0' + unitOfTime).length > 2 ? unitOfTime : '0' + unitOfTime;
+    computed: {
+      
     }
-  },
-
-  computed: {
-    
   }
-}
 </script>
 
 
@@ -122,7 +166,7 @@ export default {
   font-family: Roboto Mono, sans-serif;
 }
 
-html {
+body {
   background-color: rgb(41, 41, 41);
 }
 
@@ -149,14 +193,14 @@ html {
   display: grid;
   grid-template-columns: auto auto auto auto auto auto;
   grid-template-rows: auto auto;
-  gap: 2.0em 1.0em;
+  gap: 1.0em 0.6em;
   justify-content: space-evenly;
 }
 
 .btns {
   padding: 1.0em;
   border-radius: 1.2em;
-  font-size: 24px;
+  font-size: 32px;
   font-weight: bold;
 }
 
@@ -189,10 +233,21 @@ html {
 @media screen and (max-width: 600px) {
     .wrapper {
       max-width: 65vw;
+      margin-left: 0.5em;
+      margin-right: 0.5em;
     }
 
     .numbers {
       font-size: 72px;
+    }
+
+    .buttons {
+      gap: 0.3em 0.3em;
+    }
+
+    .btns {
+      padding: 1.0em;
+      font-size: 20px;
     }
   }
 </style>
