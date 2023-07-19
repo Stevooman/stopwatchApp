@@ -193,14 +193,14 @@ body {
   display: grid;
   grid-template-columns: auto auto auto auto auto auto;
   grid-template-rows: auto auto;
-  gap: 2.0em 1.0em;
+  gap: 1.0em 0.6em;
   justify-content: space-evenly;
 }
 
 .btns {
   padding: 1.0em;
   border-radius: 1.2em;
-  font-size: 24px;
+  font-size: 32px;
   font-weight: bold;
 }
 
@@ -233,6 +233,8 @@ body {
 @media screen and (max-width: 600px) {
     .wrapper {
       max-width: 65vw;
+      margin-left: 0.5em;
+      margin-right: 0.5em;
     }
 
     .numbers {
@@ -240,11 +242,12 @@ body {
     }
 
     .buttons {
-      gap: 0.3em 0.7em;
+      gap: 0.3em 0.3em;
     }
 
     .btns {
-      padding: 0.5em;
+      padding: 1.0em;
+      font-size: 20px;
     }
   }
 </style>
