@@ -34,11 +34,11 @@
         :buttonText="viewLapBtnText"
       />
     </div>
-    <v-laps 
-      :displayLap="lapDisplayed"
-      :lapTimes="lapTimes"
-      :id="uniqueId"
-    />
+      <v-laps 
+        :displayLap="lapDisplayed"
+        :lapTimes="lapTimes"
+        :id="uniqueId"
+      />
   </div>
 </template>
 
@@ -119,6 +119,9 @@
         this.seconds = 0;
         this.milliseconds = 0;
         this.timeDisplay = "00:00:00";
+        this.lapCounter = 0;
+        this.uniqueId = 0;
+        this.lapTimes = [];
       },
 
       padZeros(unitOfTime) {
@@ -167,14 +170,14 @@
 }
 
 body {
-  background-color: rgb(41, 41, 41);
+  background-color: rgb(50, 50, 50);
 }
 
 .wrapper {
   padding: 3.0em; /* em = relative to font-size of the element (in this case, 4 times the size of the div's font-size */
   margin: auto;
-  border: 0.6em solid #15eade;
-  background-color: #158cea;
+  border: 0.2em solid rgb(0, 158, 0);
+  background-color: #1f1f1f;
   border-radius: 1.0em 6.0em;
   margin-top: 2em;
   max-width: 70vw;
@@ -182,7 +185,7 @@ body {
 
 .numbers {
   font-size: 96px;
-  color: rgb(0, 0, 0);
+  color: rgb(0, 158, 0);
   display: flex;
   justify-content: center;
   padding-bottom: 0.5em;
@@ -198,16 +201,26 @@ body {
 }
 
 .btns {
+  background-color: rgb(101, 101, 101);
   padding: 1.0em;
   border-radius: 1.2em;
   font-size: 32px;
   font-weight: bold;
+  transition-duration: 0.2s;
+}
+
+.btns:hover {
+  background-color: white;
+}
+
+.btns:active {
+  background-color: rgb(0, 158, 0);
+  transition-duration: 0s;
 }
 
 .startBtn {
   grid-column: 1 / span 2;
   grid-row: 1;
-  background-color: #1521ea;
 }
 
 .pauseBtn {
@@ -238,7 +251,7 @@ body {
     }
 
     .numbers {
-      font-size: 72px;
+      font-size: 68px;
     }
 
     .buttons {
