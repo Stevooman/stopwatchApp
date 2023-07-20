@@ -119,6 +119,9 @@
         this.seconds = 0;
         this.milliseconds = 0;
         this.timeDisplay = "00:00:00";
+        this.lapCounter = 0;
+        this.uniqueId = 0;
+        this.lapTimes = [];
       },
 
       padZeros(unitOfTime) {
@@ -203,11 +206,16 @@ body {
   border-radius: 1.2em;
   font-size: 32px;
   font-weight: bold;
-  transition-duration: 0.3s;
+  transition-duration: 0.2s;
 }
 
 .btns:hover {
   background-color: white;
+}
+
+.btns:active {
+  background-color: rgb(0, 158, 0);
+  transition-duration: 0s;
 }
 
 .startBtn {
