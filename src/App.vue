@@ -203,6 +203,11 @@ body {
   border-radius: 1.2em;
   font-size: 32px;
   font-weight: bold;
+  transition-duration: 0.3s;
+}
+
+.btns:hover {
+  background-color: white;
 }
 
 .startBtn {
