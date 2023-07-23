@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/Stevooman/stopwatchApp/branch/main/graph/badge.svg?token=J1H0OCBR47)](https://codecov.io/gh/Stevooman/stopwatchApp)
+
 # stopwatch_app
 
 This is a complete stopwatch application. Functionality includes starting, pausing, resetting, and recording lap times. Saved lap times can be viewed by pressing the 'View Laps' button, and the stopwatch time and saved lap times can be reset by pressing the 'Reset' button.
